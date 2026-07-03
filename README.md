@@ -25,7 +25,8 @@
 |---|---|
 | `docs/specification.md` | 制作仕様書（第2.1版・唯一の正典）。第0〜18章＋付録A〜H。理念・準拠政策・資質能力構造・巻詳細設計の共通規則・全12学年の学年別詳細設計（単元×時数×到達目標×評価×差異化×前提関係）・巻構成・単元テンプレート・評価設計・デザイン標準・デジタル教材仕様・安全倫理法令・指導書仕様・品質保証プロセス・改訂サイクル・検証様式一式 |
 | `data/goals.json` | 到達目標データベース（機械可読・148目標）。仕様書の単元表から `tools/extract_goals.py` で自動抽出（手編集しない） |
-| `tools/` | 目標抽出（`extract_goals.py`）と付録A.1検証規則の機械照合（`validate_goals.py`）。CI（GitHub Actions）が全 push / PR で実行 |
+| `docs/traceability.md` | 到達目標トレーサビリティビュー（自動生成）。学年別サマリー・領域別の前提関係グラフ（Mermaid）・全目標インデックス・学年差3以上の開示一覧 |
+| `tools/` | 目標抽出（`extract_goals.py`）・付録A.1検証規則の機械照合（`validate_goals.py`）・トレーサビリティ生成（`build_traceability.py`）。CI（GitHub Actions）が全 push / PR で実行 |
 | `LICENSE.md` | MITライセンス |
 
 ## 仕様書の読み方（読者別エントリポイント）

@@ -17,3 +17,5 @@ jobs:
         run: python3 tools/extract_goals.py --check
       - name: A.1 machine-check rules + 9.4 totals
         run: python3 tools/validate_goals.py
+      - name: traceability view is in sync with goal database
+        run: python3 tools/build_traceability.py --check
