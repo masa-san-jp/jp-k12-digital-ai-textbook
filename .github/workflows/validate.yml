@@ -1,0 +1,20 @@
+name: validate-spec
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # data/goals.json must be regenerated whenever the spec's goal tables change
+      - name: goal database is in sync with specification.md
+        run: python3 tools/extract_goals.py --check
+      - name: A.1 machine-check rules + 9.4 totals
+        run: python3 tools/validate_goals.py
