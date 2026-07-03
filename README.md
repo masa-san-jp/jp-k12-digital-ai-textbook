@@ -74,6 +74,7 @@ CI（GitHub Actions `validate-spec`）が全 push / PR で「仕様書と目標D
 
 ## 貢献・フィードバック
 
+- 貢献の入口・手順・仕様変更時のルールは [`CONTRIBUTING.md`](CONTRIBUTING.md) 参照（Issueテンプレート: 現場知見／一次情報の更新／矛盾報告）
 - 教育関係者・エンジニア・研究者を問わずIssue・Pull Requestでの貢献を歓迎する
 - 学習指導要領・生成AIガイドライン等の一次情報の更新指摘は第18章保守サイクルの重要な入力源とする
 - Pull Requestは第17章の品質ゲート基準に照らして審査する
