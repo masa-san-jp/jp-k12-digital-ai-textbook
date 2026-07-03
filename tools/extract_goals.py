@@ -31,13 +31,17 @@ CHAPTER_RANGE = ("## 第5章", "## 9.4")  # goal definitions live here
 
 def spec_definition_lines(text):
     lines = text.splitlines()
-    start = next(i for i, l in enumerate(lines) if l.startswith(CHAPTER_RANGE[0]))
-    end = next(i for i, l in enumerate(lines) if l.startswith(CHAPTER_RANGE[1]))
+    try:
+        start = next(i for i, l in enumerate(lines) if l.startswith(CHAPTER_RANGE[0]))
+        end = next(i for i, l in enumerate(lines) if l.startswith(CHAPTER_RANGE[1]))
+    except StopIteration:
+        sys.exit(f"spec structure changed: heading markers {CHAPTER_RANGE} not found "
+                 "— update CHAPTER_RANGE in tools/extract_goals.py")
     return lines[start:end], start
 
 
 def iter_tables(lines, offset):
-    """Yield (header_cells, [(line_no, row_cells), ...], preceding_text)."""
+    """Yield (header_cells, [(line_no, row_cells), ...]) per markdown table."""
     i = 0
     while i < len(lines):
         if lines[i].lstrip().startswith("|"):
@@ -133,7 +137,12 @@ def main():
     args = p.parse_args()
 
     records = extract(args.spec)
-    payload = json.dumps({"source": "docs/specification.md",
+    spec_path = Path(args.spec).resolve()
+    try:
+        source = str(spec_path.relative_to(root))
+    except ValueError:
+        source = str(spec_path)
+    payload = json.dumps({"source": source,
                           "goals": records}, ensure_ascii=False, indent=1)
     out = Path(args.out)
     if args.check:
