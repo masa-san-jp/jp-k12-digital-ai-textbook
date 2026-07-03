@@ -60,15 +60,19 @@ def build(goals):
     out += ["## 領域別 前提関係グラフ", "",
             "矢印は「前提 → 目標」。★はコア目標。領域をまたぐ前提は両方の領域の図に現れる。", ""]
     for dom in ["A", "B", "C", "D", "E", "M"]:
-        edges, nodes = [], set()
+        edges = []
+        nodes = {g["id"] for g in goals if domain(g["id"]) == dom}
         for g in goals:
             for p in g["prereqs"]:
                 if p in by_id and (domain(g["id"]) == dom or domain(p) == dom):
                     edges.append((p, g["id"]))
                     nodes.update((p, g["id"]))
+        out += [f"### {DOMAIN_LABEL[dom]}", ""]
         if not edges:
-            continue
-        out += [f"### {DOMAIN_LABEL[dom]}", "", "```mermaid", "graph LR"]
+            # e.g. H3 modules: prerequisite is "core P1 completion" prose (9.3),
+            # not goal-ID references — show the standalone nodes with that note
+            out += ["前提のID参照を持たない独立目標のみ（高3モジュールの前提は「コアP1修了」＝9.3参照）。", ""]
+        out += ["```mermaid", "graph LR"]
         for n in sorted(nodes, key=lambda x: (GRADE_INDEX[x[:2]], x)):
             star = "★" if by_id[n]["star"] else ""
             out.append(f'  {n.replace("-", "_")}["{star}{n}"]')
