@@ -31,7 +31,7 @@
 | `instructor-guides/` | 教師用指導書。全12巻分の初稿（単元別指導案・誤概念カタログ・教員の予備知識ブリーフ・環境別実施ガイド・家庭地域連携・研修用資料）。評価事例集（児童生徒作品例）はG3実証授業後の実データ追補待ち |
 | `docs/curriculum-alignment.md` | 学習指導要領・UNESCO AI CFS対応表（初版）。全12巻の現行/次期学習指導要領対応とUNESCO AI CFS4次元対応を集約。次期欄は答申待ちのため想定表記 |
 | `docs/ai-review-system.md` | AI自律レビューシステム設計書（第0.1版・提案）。G2原稿審査を自律化するための設計: 検証可能性4層（機械検査/計算検証/基準参照判定/専門総合判定）・盲検パネル＋反証工程・変異注入テストによる検出率の実測（較正）・残余の人間関与（G3実測・出版時サインオフ）の最小化。採用には仕様書第17章の改訂を要する |
-| `tools/` | 目標抽出（`extract_goals.py`）・付録A.1検証規則の機械照合（`validate_goals.py`）・トレーサビリティ生成（`build_traceability.py`）。CI（GitHub Actions）が全 push / PR で実行 |
+| `tools/` | 目標抽出（`extract_goals.py`）・付録A.1検証規則の機械照合（`validate_goals.py`）・トレーサビリティ生成（`build_traceability.py`）・原稿のTier 0機械検査（`validate_manuscripts.py`: 時数凍結値照合・必須構成・文長KPI・禁止表現・計算再検算・目標ID実在・評価事例集のG3待ち明示）。CI（GitHub Actions）が全 push / PR で実行 |
 | `LICENSE.md` | MITライセンス |
 
 ## 仕様書の読み方（読者別エントリポイント）
@@ -63,6 +63,7 @@
 ```bash
 python3 tools/extract_goals.py          # 仕様書 → data/goals.json（148目標）
 python3 tools/validate_goals.py         # 付録A.1規則 + 9.4集計の照合
+python3 tools/validate_manuscripts.py   # 原稿89文書のTier 0機械検査（docs/ai-review-system.md S1）
 ```
 
 CI（GitHub Actions `validate-spec`）が全 push / PR で「仕様書と目標DBの同期」「A.1規則」を自動照合する。仕様書の単元表を変更する場合は `extract_goals.py` を再実行して `data/goals.json` を更新すること（CIの同期チェックが検出する）。
