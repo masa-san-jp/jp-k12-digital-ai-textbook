@@ -28,6 +28,7 @@
 | `docs/traceability.md` | 到達目標トレーサビリティビュー（自動生成）。学年別サマリー・領域別の前提関係グラフ（Mermaid）・全目標インデックス・学年差3以上の開示一覧 |
 | `docs/writing-plan.md` | 執筆計画書。仕様書第5〜9章の単元時数を「執筆基準時数」として全巻横断で確定し、時数→紙面配分規則・執筆工数モデル・執筆順序・フェーズ別スケジュール（G1〜G5対応）・体制・リスク対応を規定 |
 | `manuscripts/` | 単元原稿。執筆キット（`TEMPLATE.md`・運用規則）とフェーズ0のサンプル単元（小3-U2・中1-U7・高1-11章）。執筆計画書第6章のフェーズに従い順次拡充 |
+| `docs/curriculum-alignment.md` | 学習指導要領・UNESCO AI CFS対応表（初版）。全12巻の現行/次期学習指導要領対応とUNESCO AI CFS4次元対応を集約。次期欄は答申待ちのため想定表記 |
 | `tools/` | 目標抽出（`extract_goals.py`）・付録A.1検証規則の機械照合（`validate_goals.py`）・トレーサビリティ生成（`build_traceability.py`）。CI（GitHub Actions）が全 push / PR で実行 |
 | `LICENSE.md` | MITライセンス |
 
