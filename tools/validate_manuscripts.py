@@ -24,6 +24,7 @@ Exit 1 on errors; warnings never fail the build.
 """
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -238,7 +239,14 @@ def main() -> int:
     print(f"\nfiles={len(files) + len(guide_files)} sentences={total} "
           f"over-limit={long} 文長適合率={rate:.1f}% (KPI≥98%) "
           f"errors={len(errors)} warnings={len(warnings)}")
-    return 1 if errors else 0
+
+    # CIはこのスクリプトを検査の入口として実行するため、Tier 1計算検証
+    # （tools/verify_computations.py）もここから連鎖実行して全pushを両層で
+    # ゲートする。単独で実行したい場合は各スクリプトを直接起動すればよい。
+    print("\n--- Tier 1 computational verification (S2) ---")
+    tier1 = subprocess.call(
+        [sys.executable, str(ROOT / "tools" / "verify_computations.py")])
+    return 1 if (errors or tier1) else 0
 
 
 if __name__ == "__main__":
