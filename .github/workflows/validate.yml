@@ -19,3 +19,6 @@ jobs:
         run: python3 tools/validate_goals.py
       - name: traceability view is in sync with goal database
         run: python3 tools/build_traceability.py --check
+      # Tier 0 deterministic manuscript checks (docs/ai-review-system.md S1)
+      - name: manuscripts + instructor guides pass Tier 0 checks
+        run: python3 tools/validate_manuscripts.py
